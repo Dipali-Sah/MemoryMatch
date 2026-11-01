@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MemoryMatch</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <h1>MemoryMatch</h1>
+    <button id="restart" type="button">Restart</button>
+  </header>
+
+  <main class="layout">
+    <section>
+      <div class="stats">
+        <div><span>Moves</span><b id="moves">0</b></div>
+        <div><span>Time</span><b id="time">00:00</b></div>
+        <div><span>Pairs</span><b id="pairs">0 / 8</b></div>
+      </div>
+      <div id="board" class="board" aria-label="Card board"></div>
+    </section>
+
+    <aside class="leaderboard">
+      <h2>Top 10 players</h2>
+      <ol id="scores"><li class="empty">Loading scores…</li></ol>
+    </aside>
+  </main>
+
+  <dialog id="win">
+    <form method="dialog" id="winForm">
+      <h2>You matched them all</h2>
+      <p id="winText"></p>
+      <label for="name">Your name</label>
+      <input id="name" maxlength="50" placeholder="Aman" required>
+      <p id="winMsg" class="msg" role="status"></p>
+      <div class="actions">
+        <button type="submit" class="primary" id="save">Save score</button>
+        <button type="button" id="again">Play again</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+:root {
+  --bg: #f4f6f8;
+  --ink: #17202b;
+  --muted: #5d6b7a;
+  --panel: #ffffff;
+  --line: #d9dfe6;
+  --back: #2d3a8c;
+  --back-2: #3d4ba8;
+  --match: #1f8f5f;
+  --match-bg: #dff4ea;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html {
+  min-height: 100%;
+  background:
+    radial-gradient(900px 500px at 8% -5%, #ffd9ec 0%, transparent 60%),
+    radial-gradient(800px 500px at 95% 0%, #cfe3ff 0%, transparent 60%),
+    radial-gradient(900px 600px at 50% 110%, #d6f5e6 0%, transparent 60%),
+    linear-gradient(160deg, #f7f4ff 0%, #eef6ff 50%, #f4fbf7 100%);
+  background-attachment: fixed;
+}
+body {
+  margin: 0; background: transparent; color: var(--ink);
+  font-family: "Bricolage Grotesque", system-ui, sans-serif;
+  padding: 28px 32px 40px; max-width: 1180px; margin-inline: auto;
+  position: relative; min-height: 100vh;
+}
+/* soft dotted pattern over the gradient */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background-image: radial-gradient(rgba(45, 58, 140, .10) 1.2px, transparent 1.2px);
+  background-size: 26px 26px;
+}
+h1 {
+  background: linear-gradient(90deg, #2d3a8c, #7a4bd6 60%, #e0559b);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.stats div, .leaderboard {
+  background: rgba(255, 255, 255, .72);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 24px rgba(45, 58, 140, .08);
+}
+.card .face { box-shadow: 0 4px 12px rgba(45, 58, 140, .15); }
+.top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+h1 { margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -0.02em; }
+h2 { margin: 0 0 12px; font-size: 18px; font-weight: 600; }
+button {
+  font: inherit; font-weight: 600; padding: 9px 16px; border-radius: 8px; cursor: pointer;
+  border: 1px solid var(--line); background: var(--panel); color: var(--ink);
+}
+button:hover { border-color: var(--muted); }
+button.primary { background: var(--back); border-color: var(--back); color: #fff; }
+button:disabled { opacity: .6; cursor: not-allowed; }
+:focus-visible { outline: 3px solid var(--back-2); outline-offset: 2px; }
+
+.layout { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+.stats { display: flex; gap: 10px; margin-bottom: 14px; }
+.stats div { flex: 1; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px; }
+.stats span { display: block; font-size: 13px; color: var(--muted); }
+.stats b { font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+
+.board { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.card { aspect-ratio: 1; perspective: 600px; padding: 0; border: 0; background: none; }
+.inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .45s; }
+.card.flipped .inner, .card.matched .inner { transform: rotateY(180deg); }
+.face {
+  position: absolute; inset: 0; border-radius: 12px; backface-visibility: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.front {
+  background: repeating-linear-gradient(45deg, var(--back), var(--back) 8px, var(--back-2) 8px, var(--back-2) 16px);
+  border: 2px solid var(--panel);
+}
+.back { transform: rotateY(180deg); background: var(--panel); border: 1px solid var(--line); font-size: clamp(28px, 7vw, 46px); }
+.card.matched .back { background: var(--match-bg); border-color: var(--match); }
+
+.leaderboard { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+.leaderboard ol { margin: 0; padding: 0; list-style: none; }
+.leaderboard li { display: flex; justify-content: space-between; gap: 8px; padding: 9px 0; border-top: 1px solid var(--line); font-size: 15px; }
+.leaderboard li small { color: var(--muted); font-size: 13px; }
+.leaderboard .empty { color: var(--muted); }
+
+dialog { border: 1px solid var(--line); border-radius: 14px; background: var(--panel); color: var(--ink); padding: 24px; width: min(92vw, 380px); }
+dialog::backdrop { background: rgba(0, 0, 0, .5); }
+dialog label { display: block; font-size: 14px; color: var(--muted); margin-top: 12px; }
+dialog input { width: 100%; font: inherit; padding: 10px 12px; margin-top: 6px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); }
+.actions { display: flex; gap: 10px; margin-top: 16px; }
+.msg { min-height: 20px; font-size: 14px; color: var(--muted); margin: 10px 0 0; }
+
+@media (max-width: 700px) { .layout { grid-template-columns: minmax(0, 1fr); } }
+/* ---------- fuller page ---------- */
+.top { margin-bottom: 6px; }
+.tagline { margin: 0 0 22px; color: var(--muted); font-size: 16px; }
+.layout { gap: 32px; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
+.stats b { font-size: 26px; }
+.board { gap: 14px; padding: 18px; border-radius: 18px;
+  background: rgba(255, 255, 255, .45); border: 1px solid rgba(255, 255, 255, .8);
+  box-shadow: 0 12px 36px rgba(45, 58, 140, .10); }
+.leaderboard { padding: 22px; }
+.leaderboard h2 { font-size: 20px; }
+.leaderboard li { padding: 12px 0; font-size: 16px; }
+
+.tips { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 32px; }
+.tip { background: rgba(255, 255, 255, .6); border: 1px solid rgba(255, 255, 255, .85);
+  border-radius: 14px; padding: 16px 18px; backdrop-filter: blur(8px);
+  box-shadow: 0 8px 24px rgba(45, 58, 140, .07); }
+.tip .ico { font-size: 28px; display: block; margin-bottom: 6px; }
+.tip b { display: block; margin-bottom: 2px; }
+.tip span { color: var(--muted); font-size: 14px; }
+.foot { text-align: center; color: var(--muted); font-size: 13px; margin-top: 28px; }
+
+/* floating emoji decoration */
+.bg-deco { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.bg-deco span {
+  position: absolute; left: var(--x); top: var(--y); font-size: var(--s);
+  opacity: .22; filter: blur(.3px);
+  animation: floaty var(--d, 9s) ease-in-out infinite alternate;
+}
+@keyframes floaty {
+  from { transform: translateY(0) rotate(-8deg); }
+  to   { transform: translateY(-26px) rotate(10deg); }
+}
+
+@media (max-width: 700px) {
+  body { padding: 18px 14px 30px; }
+  .tips { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) { .inner { transition: none; } .bg-deco span { animation: none; } }
